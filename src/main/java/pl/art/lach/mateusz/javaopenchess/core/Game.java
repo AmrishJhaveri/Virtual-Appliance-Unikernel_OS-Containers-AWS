@@ -16,6 +16,7 @@ package pl.art.lach.mateusz.javaopenchess.core;
 
 import org.apache.log4j.Logger;
 import pl.art.lach.mateusz.javaopenchess.core.ai.AI;
+import pl.art.lach.mateusz.javaopenchess.core.ai.joc_ai.Level1;
 import pl.art.lach.mateusz.javaopenchess.core.moves.Move;
 import pl.art.lach.mateusz.javaopenchess.core.moves.MovesHistory;
 import pl.art.lach.mateusz.javaopenchess.core.pieces.Piece;
@@ -110,6 +111,7 @@ public class Game
         //TODO logic for white and black
         Player outsidePlayer=new HumanPlayer(name, colour);
         Player insidePlayer=new ComputerPlayer("","black");
+        ai= new Level1();
         init(outsidePlayer,insidePlayer);
     }
 
@@ -123,7 +125,7 @@ public class Game
         this.chessboard = new Chessboard(this.getSettings(), this.moves);
 
 //        int chessboardWidth = initChessboardView();
-//        initGameClock();
+        initGameClock();
 //        initMovesHistory();
 
 //        initTabPane(chessboardWidth);
@@ -160,13 +162,13 @@ public class Game
 //        this.add(movesHistory);
 //    }
 
-//    private void initGameClock()
-//    {
-//        gameClock = new GameClock(this);
+    private void initGameClock()
+    {
+        gameClock = new GameClock(this);
 //        gameClock.setSize(new Dimension(200, 100));
 //        gameClock.setLocation(new Point(500, 0));
 //        this.add(gameClock);
-//    }
+    }
 
     /*private void initFenState(int chessboardWidth)
     {
@@ -507,32 +509,34 @@ public class Game
 //        updateFenStateText();
 //    }
 
-    private void moveActionInvoked(int x, int y) throws ArrayIndexOutOfBoundsException
+    public Move moveActionInvoked(int[] curr,int[] next) throws ArrayIndexOutOfBoundsException
     {
+        Move move=null;
         try
         {
 //            int x = event.getX();
 //            int y = event.getY();
             //TODO convert to square the chess co-ordinates
 //            Square sq = getChessboard().getChessboardView().getSquare(x, y);
-            Square sq = getChessboard().getSquare(x, y);
-            if (cannotInvokeMoveAction(sq))
+            Square currSq = getChessboard().getSquare(curr[0], curr[1]);
+            Square nextSq = getChessboard().getSquare(next[0], next[1]);
+            /*if (cannotInvokeMoveAction(sq))
             {
                 return;
-            }
-            if (isSelectAction(sq))
+            }*/
+            /*if (isSelectAction(sq))
             {
                 selectSquare(sq);
-            } else if (isUnselect(sq))
+            }*/ /*else if (isUnselect(sq))
             {
                 getChessboard().unselect();
-            } else if (canInvokeMoveAction(sq))
+            }*/ if (canInvokeMoveAction(currSq,nextSq))
             {
-                invokeMoveAction(sq);
+                invokeMoveAction(currSq, nextSq);
             }
             if (canDoComputerMove())
             {
-                doComputerMove();
+                move=doComputerMove();
 //                highlighTabIfInactive();
             }
 
@@ -541,6 +545,7 @@ public class Game
             LOG.error("NullPointerException: " + exc.getMessage(), exc);
 //            getChessboard().repaint();
         }
+        return move;
 //        updateFenStateText();
     }
 
@@ -549,15 +554,17 @@ public class Game
         return getChessboard().getActiveSquare() == sq;
     }
 
-    private void invokeMoveAction(Square sq)
+    private void invokeMoveAction(Square curr, Square next)
     {
         if (getSettings().getGameType() == GameTypes.LOCAL)
         {
-            getChessboard().move(getChessboard().getActiveSquare(), sq);
+            getChessboard().move(curr, next);
         } else if (getSettings().getGameType() == GameTypes.NETWORK)
         {
-            moveNetworkActionInvoked(sq);
+            //shouldn't reach this code
+            moveNetworkActionInvoked(next);
         }
+        //NOT required
         getChessboard().unselect();
 
         // switch player
@@ -586,10 +593,11 @@ public class Game
         }
     }
 
-    private boolean canInvokeMoveAction(Square sq)
+    private boolean canInvokeMoveAction(Square currentSquare,Square futureSq)
     {
-        Square activeSq = getChessboard().getActiveSquare();
-        return activeSq != null && activeSq.piece != null && activeSq.getPiece().getAllMoves().contains(sq);
+        // getting active square from the REST HTTP request
+        Square activeSq = currentSquare;
+        return activeSq != null && activeSq.piece != null && activeSq.getPiece().getAllMoves().contains(futureSq);
     }
 
     private void selectSquare(Square sq)
@@ -641,9 +649,10 @@ public class Game
                 && this.getActivePlayer().getPlayerType() == PlayerType.COMPUTER && null != this.getAi();
     }
 
-    public void doComputerMove()
+    public Move doComputerMove()
     {
         Move lastMove = this.getMoves().getLastMoveFromHistory();
+        // send move in the response
         Move move = this.getAi().getMove(this, lastMove);
         getChessboard().move(move.getFrom(), move.getTo());
         if (null != move.getPromotedPiece())
@@ -651,6 +660,7 @@ public class Game
             move.getTo().setPiece(move.getPromotedPiece());
         }
         this.nextMove();
+        return move;
     }
 
 //    @Override

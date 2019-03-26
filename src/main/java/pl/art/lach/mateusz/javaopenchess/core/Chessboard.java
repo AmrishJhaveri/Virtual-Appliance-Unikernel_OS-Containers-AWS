@@ -137,8 +137,8 @@ public class Chessboard
 
     public void setPieces4NewGame(Player plWhite, Player plBlack)
     {
-        Player player = plBlack;
-        Player player1 = plWhite;
+        Player player1 = plBlack;
+        Player player = plWhite;
         this.setFigures4NewGame(0, player);
         this.setPawns4NewGame(1, player);
         this.setFigures4NewGame(7, player1);

@@ -71,7 +71,7 @@ public class GameClock extends JPanel implements Runnable
         {
             thread.start();
         }
-        this.drawBackground();
+//        this.drawBackground();
         this.setDoubleBuffered(true);
     }
 

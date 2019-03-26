@@ -50,7 +50,7 @@ public abstract class Behavior<T extends Piece>
      * This method is returning all legal moves of piece. It looks for King safety.
      * In ususal case it should return filtered result of getSquaresInRange() method.
      * @return list of legal moves. 
-     * @see Behavior.getSquaresInRange.
+     *
      */
     public Set<Square> getLegalMoves()
     {

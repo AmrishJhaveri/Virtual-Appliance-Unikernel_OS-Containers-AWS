@@ -23,5 +23,5 @@ public enum GameTypes
 {
     LOCAL,
     
-    NETWORK;
+    NETWORK
 }
