@@ -1,6 +1,5 @@
 package com.uic.chess.cs441.chessrestapi.session;
 
-import org.springframework.stereotype.Component;
 import pl.art.lach.mateusz.javaopenchess.core.Game;
 
 import java.util.HashMap;
@@ -28,6 +27,10 @@ public class SessionMapSingleton {
         }
         sessionMap.put(uuid, game);
         return uuid;
+    }
+
+    public boolean removeGameFromSession(String sessionId) {
+        return sessionMap.remove(sessionId) != null;
     }
 
     private String generateUuid() {

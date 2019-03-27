@@ -1,5 +1,6 @@
 package com.uic.chess.cs441.chessrestapi.services;
 
+import com.uic.chess.cs441.chessrestapi.enums.GameStatus;
 import com.uic.chess.cs441.chessrestapi.interfaces.IChessEngine;
 import com.uic.chess.cs441.chessrestapi.models.MoveObject;
 import com.uic.chess.cs441.chessrestapi.session.SessionMapSingleton;
@@ -40,11 +41,18 @@ public class ChessEngineImpl implements IChessEngine {
         return SessionMapSingleton.getInstance()
                 .getGameBySession(session)
                 .filter(Game::isIsEndOfGame)
-                .map(game -> new MoveObject("", "", session, "End of Game"))
-                .orElse(move.map(move1 -> new MoveObject(ChessUtility.getStringFromIndex(move1.getFrom()),
-                        ChessUtility.getStringFromIndex(move1.getTo()),
-                        session, "")).orElse(new MoveObject("", "", session, "Invalid Move")));
+                .map(game ->
+                        MoveObject.getFinishedGameObject(session))
+                .orElse(move.map(move1 ->
+                        new MoveObject(ChessUtility.getStringFromIndex(move1.getFrom()),
+                                ChessUtility.getStringFromIndex(move1.getTo()),
+                                session, "", GameStatus.ONGOING))
+                        .orElse(MoveObject.getInvalidMoveObject(session)));
+    }
 
-
+    @Override
+    public MoveObject quit(String session) {
+        return SessionMapSingleton.getInstance().removeGameFromSession(session) ?
+                MoveObject.getEndGameObject(session) : MoveObject.getInvalidMoveObject(session);
     }
 }

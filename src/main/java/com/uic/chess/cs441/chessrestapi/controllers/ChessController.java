@@ -32,4 +32,8 @@ public class ChessController {
                 HttpStatus.OK);
     }
 
+    @PostMapping("/quit")
+    public ResponseEntity<MoveObject> quit(@RequestBody MoveObject moveObj) {
+        return new ResponseEntity<>(engine.quit(moveObj.getSession()), HttpStatus.OK);
+    }
 }
