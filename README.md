@@ -267,7 +267,7 @@ Review and Launch the instance.
 Step 9: EC2 instance screen. Get the domain name provided on the screen.
 
 
-![](https://bitbucket.org/ajhave5/amrishashvinkumar_jhaveri_hw4/raw/master/images/aws_osv_step8e.png)
+![](https://bitbucket.org/ajhave5/amrishashvinkumar_jhaveri_hw4/raw/master/images/aws_osv_step9.png)
 
 
 Step 10: Hit the URL,` <ec2_domain_name>:8081/chess/newGame` from Postman as a POST request.
