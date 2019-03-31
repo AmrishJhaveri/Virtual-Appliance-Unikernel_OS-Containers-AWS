@@ -22,29 +22,29 @@
 1. Install go package:
 
 
-	wget https://golang.org/doc/install?download=go1.12.1.linux-amd64.tar.gz
+		wget https://golang.org/doc/install?download=go1.12.1.linux-amd64.tar.gz
 	
 
 2. Untar the tar.gz into /usr/local folder	
 
 
-	sudo tar -C /usr/local -xzf go1.2.1.linux-amd64.tar.gz
+		sudo tar -C /usr/local -xzf go1.2.1.linux-amd64.tar.gz
 
 	
 3. Install qemu-kvm package.
 
 
-	sudo apt-get install qemu-kvm		
+		sudo apt-get install qemu-kvm
 
 
 4. Set the ENV variables:
 
 
-	echo 'export GOPATH=$HOME/go'  >>  $HOME/.profile
+		echo 'export GOPATH=$HOME/go'  >>  $HOME/.profile
 	
-	echo 'export PATH=$PATH:$GOPATH/bin:/usr/local/go/bin' >>  $HOME/.profile
+		echo 'export PATH=$PATH:$GOPATH/bin:/usr/local/go/bin' >>  $HOME/.profile
 	
-	source $HOME/.profile
+		source $HOME/.profile
 
 
 5. Install Capstan            
@@ -169,7 +169,7 @@ Response JSON:
 ### OSv Image with Spring App on EC2 ###
 
 
-Step 1: Convert the disk.qcow2 image located at `~/.capstan/instances/qemu/chess-rest-api to a `raw` format image
+Step 1: Convert the disk.qcow2 image located at `~/.capstan/instances/qemu/chess-rest-api` to a `raw` format image
 	
 	qemu-img convert disk.qcow2 chess-rest-api-img.raw
 
