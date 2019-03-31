@@ -1,7 +1,10 @@
 # REST APIs on Virtual Appliance(VAP) using Unikernel OS(OSv) and Containers on AWS EC2 #
 
 ----------
+
 ## Pre-requiste ##
+
+----------
 
 - Ubuntu 16.04 / Linux OS
 - Java v1.8
@@ -11,6 +14,8 @@
 - [Postman](https://www.getpostman.com/downloads/) 
 
 ## Setup  ##
+
+----------
 
 ### Capstan ###
 1. Install go package:
@@ -38,6 +43,8 @@
 
 ## Build ##
 
+----------
+
 ### 1. chess-rest-api.jar(Spring App) ###
 
 Chekout this repository. Run the following command from within the directory where pom.xml is present.
@@ -50,7 +57,7 @@ Test this fat jar rund independently by run the following command:
 
 The REST API services for the Chess App will be running at `localhost:8081/chess/newGame` (Post request)
 
-### 2.Build the Image  ###
+### 2.Build the OSv Image  ###
 
 	`sudo capstan run -f "8081:8081"-f "8000:8000"
 
@@ -61,9 +68,13 @@ Also this will create a image( `disk.qcow2` ) in the directory
 	~/.capstan/instances/qemu/chess-rest-api
 
 
-## Chess REST API & JSON structure ###
+## Chess REST API & JSON structure ##
 
-Please use the following service with Postman client.
+----------
+
+- Chess's white piece will be the player using the rest service.
+- All white pieces will be placed from a to h (horizontally-left to right) and 1 to 8 (bottom to top). 
+- Please use the following service with Postman client.
 - All requests are POST requests. Request and reponse JSON are provided for each kind of request.
 - Please select POST request, in the request body section select "raw" and then select type as "application/json" from the drop down.
 - You can copy the sample request json and change the values accordingly.
@@ -119,6 +130,28 @@ Response JSON:
 	}
 
 
+### Quit Game ###
+
+URL: localhost:8081/chess/quit
+
+Request Type: POST
+
+Request JSON:
+
+        {
+        "session":"d85409d0-041c-4c04-85e4-c16b230b9274"
+        }
+
+Response JSON:
+	{
+	"start": "",
+    	"end": "",
+    	"session": "d85409d0-041c-4c04-85e4-c16b230b9274",
+    	"message": "The game exited successfully.",
+    	"status": "QUIT"
+	}
+
+
 
 
 Response JSON :
@@ -131,7 +164,7 @@ Response JSON :
     `hadoop fs -put <logfilename> input_dir`
 - Run the jar from the directory where the jar is present.
     `hadoop jar author-map-dblp.jar AuthorMapping input_dir output_dir`        
-
+	
 ### 5. Extract Output to System ###
 - Once the job is completed the output needs to be extracted from hadoop to the local VM directory
     `hadoop fs -get output_dir/part-r-00000 ./` 
