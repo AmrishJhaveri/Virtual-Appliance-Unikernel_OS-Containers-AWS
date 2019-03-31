@@ -297,6 +297,9 @@ Step 5: Provide a cluster name.
 
 Step 6: Review and launch.
 
+[](https://bitbucket.org/ajhave5/amrishashvinkumar_jhaveri_hw4/raw/master/images/aws_ecs_docker_step6.png)
+
+
 Using the domain-name or public ip-address you access the relevant REST APIS on port 8081.
 
 
