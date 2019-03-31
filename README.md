@@ -21,27 +21,27 @@
 ### Capstan ###
 1. Install go package:
 
-	`wget https://golang.org/doc/install?download=go1.12.1.linux-amd64.tar.gz`
+	wget https://golang.org/doc/install?download=go1.12.1.linux-amd64.tar.gz
 	
 2. Untar the tar.gz into /usr/local folder	
 
-	`sudo tar -C /usr/local -xzf go1.2.1.linux-amd64.tar.gz`
+	sudo tar -C /usr/local -xzf go1.2.1.linux-amd64.tar.gz
 	
 3. Install qemu-kvm package.
 
-	`sudo apt-get install qemu-kvm`			
+	sudo apt-get install qemu-kvm		
 
 4. Set the ENV variables:
 
-	`echo 'export GOPATH=$HOME/go'  >>  $HOME/.profile`
+	echo 'export GOPATH=$HOME/go'  >>  $HOME/.profile
 	
-	`echo 'export PATH=$PATH:$GOPATH/bin:/usr/local/go/bin' >>  $HOME/.profile`
+	echo 'export PATH=$PATH:$GOPATH/bin:/usr/local/go/bin' >>  $HOME/.profile
 	
-	`source $HOME/.profile`
+	source $HOME/.profile
 
 5. Install Capstan            
 
-        `go get github.com/cloudius-systems/capstan`
+        go get github.com/cloudius-systems/capstan
 
 
 ## Build ##
@@ -52,17 +52,17 @@
 
 Chekout this repository. Run the following command from within the directory where pom.xml is present.
 
-	`mvn clean package`
+	mvn clean package
 
 Test this fat jar independently by running the following command:
 
-	`java -jar target/chess-rest-api-0.0.1-SNAPSHOT.jar`
+	java -jar target/chess-rest-api-0.0.1-SNAPSHOT.jar
 
 The REST API services for the Chess App will be running at `localhost:8081/chess/newGame` (POST request)
 
 ### 2. Build the OSv Image  ###
 
-	`capstan run -f "8081:8081"-f "8000:8000"`
+	capstan run -f "8081:8081"-f "8000:8000"
 
 Chess Spring App runs on port 8081
 OSv Dashboard and its REST APIs are available on port 8081.
@@ -165,22 +165,22 @@ Response JSON:
 
 Step 1: Convert the disk.qcow2 image located at `~/.capstan/instances/qemu/chess-rest-api to a `raw` format image
 	
-	`qemu-img convert disk.qcow2 chess-rest-api-img.raw`
+	qemu-img convert disk.qcow2 chess-rest-api-img.raw
 
 Note: This creates a 10GB image. 
 
 Create a IAM role named `vmimport` using the `qemu-images/trust-policy.json` (change the current directory):
 
-	`aws iam create-role --role-name vmimport --assume-role-policy-document "file://trust-policy.json"`
+	aws iam create-role --role-name vmimport --assume-role-policy-document "file://trust-policy.json"
 
 Tag role policy to this `vmimport` role using `role-policy.json` (change the current directory):
 	
-	`aws iam put-role-policy --role-name vmimport --policy-name vmimport --policy-document "file://role-policy.json"`
+	aws iam put-role-policy --role-name vmimport --policy-name vmimport --policy-document "file://role-policy.json"
 
 
 Step 2: Create a bucket on AWS S3 with the command:
 
-	`aws s3 mb s3://com.uic.cs441.hw4.amrish`
+	aws s3 mb s3://com.uic.cs441.hw4.amrish
 
 
 ![](https://bitbucket.org/ajhave5/amrishashvinkumar_jhaveri_hw4/raw/master/images/aws_osv_step2.png)
@@ -188,7 +188,7 @@ Step 2: Create a bucket on AWS S3 with the command:
 
 Step 3: Upload the `raw` image format file to s3 bucket with the command:
 
-	`aws s3 cp chess-rest-api-img.raw s3://com.uic.cs441.hw4.amrish/`
+	aws s3 cp chess-rest-api-img.raw s3://com.uic.cs441.hw4.amrish/
 
 
 ![](https://bitbucket.org/ajhave5/amrishashvinkumar_jhaveri_hw4/raw/master/images/aws_osv_step3.png)
@@ -199,7 +199,7 @@ Step 4: Import the image uploaded in s3 bucket as a snapshot for EC2 using the c
 It has the format and the s3 bucket name and key details:
 
 	
-	`aws ec2 import-snapshot --description "OSv Chess Rest API CS 441 Amrish" --disk-container "file://containers.json"`
+	aws ec2 import-snapshot --description "OSv Chess Rest API CS 441 Amrish" --disk-container "file://containers.json"
 
 
 ![](https://bitbucket.org/ajhave5/amrishashvinkumar_jhaveri_hw4/raw/master/images/aws_osv_step4.png)
@@ -271,7 +271,7 @@ Step 10: Hit the URL, <ec2_domain_name>:8081/chess/newGame from Postman as a POS
 
 You can directly run the docker container by pulling the docker image from the DockerHub with the command:
 
-	`sudo docker run -d -p "8081:8081" ajhave5/chess-hw4-amrish:latest`
+	sudo docker run -d -p "8081:8081" ajhave5/chess-hw4-amrish:latest
 
 This should start the container and the Spring App inside it.
 Using Postman with the url `localhost:8081/chess/newGame` and appropriate parameters as described above you should receive a valid response.
