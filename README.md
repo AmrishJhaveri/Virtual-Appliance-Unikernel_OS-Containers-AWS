@@ -33,7 +33,9 @@
 4. Set the ENV variables:
 
 	`echo 'export GOPATH=$HOME/go'  >>  $HOME/.profile`
+	
 	`echo 'export PATH=$PATH:$GOPATH/bin:/usr/local/go/bin' >>  $HOME/.profile`
+	
 	`source $HOME/.profile`
 
 5. Install Capstan            
@@ -51,21 +53,20 @@ Chekout this repository. Run the following command from within the directory whe
 
 	`mvn clean package`
 
-Test this fat jar rund independently by run the following command:
+Test this fat jar independently by running the following command:
 
 	`java -jar target/chess-rest-api-0.0.1-SNAPSHOT.jar`
 
-The REST API services for the Chess App will be running at `localhost:8081/chess/newGame` (Post request)
+The REST API services for the Chess App will be running at `localhost:8081/chess/newGame` (POST request)
 
 ### 2.Build the OSv Image  ###
 
-	`sudo capstan run -f "8081:8081"-f "8000:8000"
+	`capstan run -f "8081:8081"-f "8000:8000"`
 
 Chess Spring App runs on port 8081
 OSv Dashboard and its REST APIs are available on port 8081.
 
-Also this will create a image( `disk.qcow2` ) in the directory 
-	~/.capstan/instances/qemu/chess-rest-api
+Also this will create a image( `disk.qcow2` ) in the directory `~/.capstan/instances/qemu/chess-rest-api`
 
 
 ## Chess REST API & JSON structure ##
@@ -88,7 +89,7 @@ Also this will create a image( `disk.qcow2` ) in the directory
 4. message(String): Used in response for providing a description based on the move made.  
 5. status(String): Provides the status of the game i.e. ONGOING, FINISHED, QUIT. QUIT is provided if the quit service was invoked. 
 
-### New Game ###
+### New Game Service ###
 
 URL: localhost:8081/chess/newGame
 
@@ -105,7 +106,7 @@ Response JSON:
 The response is the session id of the game which is requried when invoking the subsequent services.
 
 
-### Move ###
+### Move Service ###
 
 URL: localhost:8081/chess/move
 
@@ -130,7 +131,7 @@ Response JSON:
 	}
 
 
-### Quit Game ###
+### Quit Game Service ###
 
 URL: localhost:8081/chess/quit
 
@@ -143,27 +144,44 @@ Request JSON:
         }
 
 Response JSON:
+
 	{
 	"start": "",
-    	"end": "",
-    	"session": "d85409d0-041c-4c04-85e4-c16b230b9274",
-    	"message": "The game exited successfully.",
-    	"status": "QUIT"
+	"end": "",
+	"session": "d85409d0-041c-4c04-85e4-c16b230b9274",
+	"message": "The game exited successfully.",
+	"status": "QUIT"
 	}
 
 
 
 
-Response JSON :
 
-### 4. Run Hadoop Mapreduce ###
-- Navigate to the directory where the above files are stored on the VM.
-- Create input directory on hadoop
-    `hadoop fs -mkdir input_dir`
-- Transfer the logfile to the input directory
-    `hadoop fs -put <logfilename> input_dir`
-- Run the jar from the directory where the jar is present.
-    `hadoop jar author-map-dblp.jar AuthorMapping input_dir output_dir`        
+## Deployment on AWS  ##
+
+### OSv Image with Spring App on EC2 ###
+
+Step 1: Convert the disk.qcow2 image located at `~/.capstan/instances/qemu/chess-rest-api to a `raw` format image
+	
+	`qemu-img convert disk.qcow2 chess-rest-api-img.raw`
+
+Note: This creates a 10GB image. 
+
+Step 2: Create a bucket on AWS S3 with the command:
+
+	`aws s3 mb s3://com.uic.cs441.hw4.amrish`
+
+![](https://bitbucket.org/ajhave5/amrishashvinkumar_jhaveri_hw4/raw/master/images/aws_osv_step2.png)
+
+Step 3: Upload the `raw` image format file to s3 bucket with the command:
+
+	`aws s3 cp chess-rest-api-img.raw s3://com.uic.cs441.hw4.amrish/`
+
+![](https://bitbucket.org/ajhave5/amrishashvinkumar_jhaveri_hw4/raw/master/images/aws_osv_step3.png)
+
+Step 4: 
+
+
 	
 ### 5. Extract Output to System ###
 - Once the job is completed the output needs to be extracted from hadoop to the local VM directory
