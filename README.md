@@ -169,6 +169,14 @@ Step 1: Convert the disk.qcow2 image located at `~/.capstan/instances/qemu/chess
 
 Note: This creates a 10GB image. 
 
+Create a IAM role named `vmimport` using the `qemu-images/trust-policy.json` (change the current directory):
+
+	`aws iam create-role --role-name vmimport --assume-role-policy-document "file://trust-policy.json"`
+
+Tag role policy to this `vmimport` role using `role-policy.json` (change the current directory):
+	
+	`aws iam put-role-policy --role-name vmimport --policy-name vmimport --policy-document "file://role-policy.json"`
+
 
 Step 2: Create a bucket on AWS S3 with the command:
 
@@ -271,16 +279,38 @@ Using Postman with the url `localhost:8081/chess/newGame` and appropriate parame
 
 ### Running Docker Image on AWS ECS ###
 
+Step 1 : Open Get Started link of [AWS ECS](https://console.aws.amazon.com/ecs/home?region=us-east-1#/firstRun)
 
+Step 2: Create a custom Container definition:
+Provide Container name, docker-hub registry url of the image (registry.hub.docker.com/ajhave5/chess-hw4-amrish) 
+and port mapping for port 8081.
+
+![](https://bitbucket.org/ajhave5/amrishashvinkumar_jhaveri_hw4/raw/master/images/aws_ecs_docker_step2.png)
+
+Step 3: Provide appropriate task name.
+
+Step 4: On the Define your Service screen keep the default configuration (no load balancers)
+
+![](https://bitbucket.org/ajhave5/amrishashvinkumar_jhaveri_hw4/raw/master/images/aws_ecs_docker_step4.png)
+
+Step 5: Provide a cluster name.
+
+Step 6: Review and launch.
+
+Using the domain-name or public ip-address you access the relevant REST APIS on port 8081.
 
 
 ## Built With
 
 ----------
-- [Scala](https://www.scala-lang.org/) - Scala combines object-oriented and functional programming in one concise, high-level language
-- [SBT](https://www.scala-sbt.org/) - sbt is a build tool for Scala & Java
-- [Cloudera](https://www.cloudera.com/) - Cloudera QuickStart VMs (single-node cluster)
-- [Hadoop](https://hadoop.apache.org/) - framework that allows for the distributed processing of large data sets
+
+- [Maven](https://maven.apache.org/) - it an manage a project's build, reporting and documentation from a central piece of information.
+- [SpringBoot](https://spring.io/projects/spring-boot) - easy to create stand-alone, production-grade Spring based Applications that you can "just run".
+- [OSv](http://osv.io/) - open source operating system designed for the cloud
+- [Docker](https://www.docker.com/) - building containerized applications
+- [AWS EC2](https://aws.amazon.com/ec2/) - Secure and resizable compute capacity in the cloud.
+- [AWS ECS](https://aws.amazon.com/ecs/) -  Run containerized applications in production
+
 
 ## Authors
 

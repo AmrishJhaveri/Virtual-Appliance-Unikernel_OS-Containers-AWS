@@ -1,0 +1,8 @@
+{
+    "Description": "OSv Chess Rest API CS 441 Amrish",
+    "Format": "raw",
+    "UserBucket": {
+        "S3Bucket": "com.uic.cs441.hw4.amrish",
+        "S3Key": "chess-rest-api-img.raw"
+    }
+}
