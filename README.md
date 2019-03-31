@@ -48,7 +48,7 @@
 
 ----------
 
-### 1. chess-rest-api.jar(Spring App) ###
+### 1. Spring App (chess-rest-api.jar) ###
 
 Chekout this repository. Run the following command from within the directory where pom.xml is present.
 
@@ -60,7 +60,7 @@ Test this fat jar independently by running the following command:
 
 The REST API services for the Chess App will be running at `localhost:8081/chess/newGame` (POST request)
 
-### 2.Build the OSv Image  ###
+### 2. Build the OSv Image  ###
 
 	`capstan run -f "8081:8081"-f "8000:8000"`
 
