@@ -186,7 +186,10 @@ Step 3: Upload the `raw` image format file to s3 bucket with the command:
 ![](https://bitbucket.org/ajhave5/amrishashvinkumar_jhaveri_hw4/raw/master/images/aws_osv_step3.png)
 
 
-Step 4: Import the image uploaded in s3 bucket as a snapshot for EC2 using the command:
+Step 4: Import the image uploaded in s3 bucket as a snapshot for EC2 using the command. 
+`containers.json` is provided in the `qemu-images` folder. 
+It has the format and the s3 bucket name and key details:
+
 	
 	`aws ec2 import-snapshot --description "OSv Chess Rest API CS 441 Amrish" --disk-container "file://containers.json"`
 
@@ -247,34 +250,29 @@ e) Default SSH inbound traffic is allowed, add additional rules so traffic on po
 Review and Launch the instance.
 
 
+Step 9: EC2 instance screen. Get the domain name provided on the screen.
 
+
+![](https://bitbucket.org/ajhave5/amrishashvinkumar_jhaveri_hw4/raw/master/images/aws_osv_step8e.png)
+
+
+Step 10: Hit the URL, <ec2_domain_name>:8081/chess/newGame from Postman as a POST request.
+
+
+### Run Docker Image with the Spring App on Local Machine ###
+
+You can directly run the docker container by pulling the docker image from the DockerHub with the command:
+
+	`sudo docker run -d -p "8081:8081" ajhave5/chess-hw4-amrish:latest`
+
+This should start the container and the Spring App inside it.
+Using Postman with the url `localhost:8081/chess/newGame` and appropriate parameters as described above you should receive a valid response.
 	
-### 5. Extract Output to System ###
-- Once the job is completed the output needs to be extracted from hadoop to the local VM directory
-    `hadoop fs -get output_dir/part-r-00000 ./` 
 
-Sample Output:
-
-    A. Prasad Sistla,A. Prasad Sistla,	102
-    A. Prasad Sistla,Bing Liu 0001,	1
-    A. Prasad Sistla,Isabel F. Cruz,	2
-    A. Prasad Sistla,Lenore D. Zuck,	6
-    A. Prasad Sistla,Robert H. Sloan,	1
-    A. Prasad Sistla,V. N. Venkatakrishnan,	8
-    Ajay D. Kshemkalyani,Ajay D. Kshemkalyani,	112
-    Ajay D. Kshemkalyani,Ugo Buy,	1
+### Running Docker Image on AWS ECS ###
 
 
-### 6. SFTP to Cloudera ###
-- Move this file to a folder on the host system.
 
-### 7. Run Gephi for Graph ###
-- Open Gephi and the workspace provided in the `logs` folder of this project.
-- Import the CSV file( convert the file moved from the Cloudera to CSV extension).
-
-Output Graph:
-
-![](https://bitbucket.org/ajhave5/amrishashvinkumar_jhaveri_hw2/raw/master/logs/authors_mapping3.png)
 
 ## Built With
 
