@@ -21,17 +21,24 @@
 ### Capstan ###
 1. Install go package:
 
+
 	wget https://golang.org/doc/install?download=go1.12.1.linux-amd64.tar.gz
 	
+
 2. Untar the tar.gz into /usr/local folder	
 
+
 	sudo tar -C /usr/local -xzf go1.2.1.linux-amd64.tar.gz
+
 	
 3. Install qemu-kvm package.
 
+
 	sudo apt-get install qemu-kvm		
 
+
 4. Set the ENV variables:
+
 
 	echo 'export GOPATH=$HOME/go'  >>  $HOME/.profile
 	
@@ -39,7 +46,9 @@
 	
 	source $HOME/.profile
 
+
 5. Install Capstan            
+
 
         go get github.com/cloudius-systems/capstan
 
@@ -92,7 +101,7 @@ Also this will create a image( `disk.qcow2` ) in the directory `~/.capstan/insta
 
 ### New Game Service ###
 
-URL: localhost:8081/chess/newGame
+URL: `localhost:8081/chess/newGame`
 
 Request Type: POST
 
@@ -109,7 +118,7 @@ The response is the session id of the game which is requried when invoking the s
 
 ### Move Service ###
 
-URL: localhost:8081/chess/move
+URL: `localhost:8081/chess/move`
 
 Request Type: POST
 
@@ -134,7 +143,7 @@ Response JSON:
 
 ### Quit Game Service ###
 
-URL: localhost:8081/chess/quit
+URL: `localhost:8081/chess/quit`
 
 Request Type: POST
 
@@ -153,9 +162,6 @@ Response JSON:
 	"message": "The game exited successfully.",
 	"status": "QUIT"
 	}
-
-
-
 
 
 ## Deployment on AWS  ##
@@ -264,7 +270,7 @@ Step 9: EC2 instance screen. Get the domain name provided on the screen.
 ![](https://bitbucket.org/ajhave5/amrishashvinkumar_jhaveri_hw4/raw/master/images/aws_osv_step8e.png)
 
 
-Step 10: Hit the URL, <ec2_domain_name>:8081/chess/newGame from Postman as a POST request.
+Step 10: Hit the URL,` <ec2_domain_name>:8081/chess/newGame` from Postman as a POST request.
 
 
 ### Run Docker Image with the Spring App on Local Machine ###
@@ -281,7 +287,7 @@ Using Postman with the url `localhost:8081/chess/newGame` and appropriate parame
 
 Step 1 : Open Get Started link of [AWS ECS](https://console.aws.amazon.com/ecs/home?region=us-east-1#/firstRun)
 
-Step 2: Create a custom Container definition:
+Step 2: Create a custom Container definition: (Docker Image at [https://hub.docker.com/r/ajhave5/chess-hw4-amrish](https://hub.docker.com/r/ajhave5/chess-hw4-amrish) )
 Provide Container name, docker-hub registry url of the image (registry.hub.docker.com/ajhave5/chess-hw4-amrish) 
 and port mapping for port 8081.
 
