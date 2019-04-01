@@ -1,4 +1,4 @@
-# REST APIs on Virtual Appliance(VAP) using Unikernel OS(OSv) and Containers on AWS EC2 #
+# REST APIs on Virtual Appliance(VAP) using Unikernel OS(OSv) and Containers on AWS #
 
 ----------
 
