@@ -189,7 +189,7 @@ Step 2: Create a bucket on AWS S3 with the command:
 	aws s3 mb s3://com.uic.cs441.hw4.amrish
 
 
-![](https://bitbucket.org/ajhave5/amrishashvinkumar_jhaveri_hw4/raw/master/images/aws_osv_step2.png)
+![](https://github.com/AmrishJhaveri/Virtual-Appliance-Unikernel_OS-Containers-AWS/blob/master/images/aws_osv_step2.png)
 
 
 Step 3: Upload the `raw` image format file to s3 bucket with the command:
@@ -197,7 +197,7 @@ Step 3: Upload the `raw` image format file to s3 bucket with the command:
 	aws s3 cp chess-rest-api-img.raw s3://com.uic.cs441.hw4.amrish/
 
 
-![](https://bitbucket.org/ajhave5/amrishashvinkumar_jhaveri_hw4/raw/master/images/aws_osv_step3.png)
+![](https://github.com/AmrishJhaveri/Virtual-Appliance-Unikernel_OS-Containers-AWS/blob/master/images/aws_osv_step3.png)
 
 
 Step 4: Import the image uploaded in s3 bucket as a snapshot for EC2 using the command. 
@@ -208,25 +208,25 @@ It has the format and the s3 bucket name and key details:
 	aws ec2 import-snapshot --description "OSv Chess Rest API CS 441 Amrish" --disk-container "file://containers.json"
 
 
-![](https://bitbucket.org/ajhave5/amrishashvinkumar_jhaveri_hw4/raw/master/images/aws_osv_step4.png)
+![](https://github.com/AmrishJhaveri/Virtual-Appliance-Unikernel_OS-Containers-AWS/blob/master/images/aws_osv_step4.png)
 
 
 Step 5: Create an AMI image from this snapshot:
 
 
-![](https://bitbucket.org/ajhave5/amrishashvinkumar_jhaveri_hw4/raw/master/images/aws_osv_step5.png)
+![](https://github.com/AmrishJhaveri/Virtual-Appliance-Unikernel_OS-Containers-AWS/blob/master/images/aws_osv_step5.png)
 
 
 Step 6: Configure the image to have HAV(Hardware Assisted Virtualization), Storage as Magnetic disk.
 
 
-![](https://bitbucket.org/ajhave5/amrishashvinkumar_jhaveri_hw4/raw/master/images/aws_osv_step6.png)
+![](https://github.com/AmrishJhaveri/Virtual-Appliance-Unikernel_OS-Containers-AWS/blob/master/images/aws_osv_step6.png)
 
 
 Step 7: Image will be available under AMI(Amazon Machine Image) on EC2 portal.
 
 
-![](https://bitbucket.org/ajhave5/amrishashvinkumar_jhaveri_hw4/raw/master/images/aws_osv_step7.png)
+![](https://github.com/AmrishJhaveri/Virtual-Appliance-Unikernel_OS-Containers-AWS/blob/master/images/aws_osv_step7.png)
 
 
 Step 8: Launch an instance of this image with following configurations:
@@ -234,31 +234,31 @@ Step 8: Launch an instance of this image with following configurations:
 a) Select General Purpose t2.micro as the instance type for free tier:
 
 
-![](https://bitbucket.org/ajhave5/amrishashvinkumar_jhaveri_hw4/raw/master/images/aws_osv_step8a.png)
+![](https://github.com/AmrishJhaveri/Virtual-Appliance-Unikernel_OS-Containers-AWS/blob/master/images/aws_osv_step8a.png)
 
 
 b) Default config for Instance Config screen:
 
 
-![](https://bitbucket.org/ajhave5/amrishashvinkumar_jhaveri_hw4/raw/master/images/aws_osv_step8b.png)
+![](https://github.com/AmrishJhaveri/Virtual-Appliance-Unikernel_OS-Containers-AWS/blob/master/images/aws_osv_step8b.png)
 
 
 c) For storage change volume type to Magnetic(standard) for free tier:
 
 
-![](https://bitbucket.org/ajhave5/amrishashvinkumar_jhaveri_hw4/raw/master/images/aws_osv_step8c.png)
+![](https://github.com/AmrishJhaveri/Virtual-Appliance-Unikernel_OS-Containers-AWS/blob/master/images/aws_osv_step8c.png)
 
 
 d) Default config for Add Tags screen:
 
 
-![](https://bitbucket.org/ajhave5/amrishashvinkumar_jhaveri_hw4/raw/master/images/aws_osv_step8d.png)
+![](https://github.com/AmrishJhaveri/Virtual-Appliance-Unikernel_OS-Containers-AWS/blob/master/images/aws_osv_step8d.png)
 
 
 e) Default SSH inbound traffic is allowed, add additional rules so traffic on port 8000, 8081 is all allowed.
 
 
-![](https://bitbucket.org/ajhave5/amrishashvinkumar_jhaveri_hw4/raw/master/images/aws_osv_step8e.png)
+![](https://github.com/AmrishJhaveri/Virtual-Appliance-Unikernel_OS-Containers-AWS/blob/master/images/aws_osv_step8e.png)
 
 
 Review and Launch the instance.
@@ -267,7 +267,7 @@ Review and Launch the instance.
 Step 9: EC2 instance screen. Get the domain name provided on the screen.
 
 
-![](https://bitbucket.org/ajhave5/amrishashvinkumar_jhaveri_hw4/raw/master/images/aws_osv_step9.png)
+![](https://github.com/AmrishJhaveri/Virtual-Appliance-Unikernel_OS-Containers-AWS/blob/master/images/aws_osv_step9.png)
 
 
 Step 10: Hit the URL,` <ec2_domain_name>:8081/chess/newGame` from Postman as a POST request.
@@ -291,19 +291,19 @@ Step 2: Create a custom Container definition: (Docker Image at [https://hub.dock
 Provide Container name, docker-hub registry url of the image (registry.hub.docker.com/ajhave5/chess-hw4-amrish) 
 and port mapping for port 8081.
 
-![](https://bitbucket.org/ajhave5/amrishashvinkumar_jhaveri_hw4/raw/master/images/aws_ecs_docker_step2.png)
+![](https://github.com/AmrishJhaveri/Virtual-Appliance-Unikernel_OS-Containers-AWS/blob/master/images/aws_ecs_docker_step2.png)
 
 Step 3: Provide appropriate task name.
 
 Step 4: On the Define your Service screen keep the default configuration (no load balancers)
 
-![](https://bitbucket.org/ajhave5/amrishashvinkumar_jhaveri_hw4/raw/master/images/aws_ecs_docker_step4.png)
+![](https://github.com/AmrishJhaveri/Virtual-Appliance-Unikernel_OS-Containers-AWS/blob/master/images/aws_ecs_docker_step4.png)
 
 Step 5: Provide a cluster name.
 
 Step 6: Review and launch.
 
-![](https://bitbucket.org/ajhave5/amrishashvinkumar_jhaveri_hw4/raw/master/images/aws_ecs_docker_step6.png)
+![](https://github.com/AmrishJhaveri/Virtual-Appliance-Unikernel_OS-Containers-AWS/blob/master/images/aws_ecs_docker_step6.png)
 
 
 Using the domain-name or public ip-address you access the relevant REST APIS on port 8081.
