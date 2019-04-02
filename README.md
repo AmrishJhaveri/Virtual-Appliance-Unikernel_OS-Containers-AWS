@@ -2,6 +2,12 @@
 
 ----------
 
+- A virtual appliance is a preconfigured software solution that makes it possible to package, maintain, update and manage one or more virtual machines together as a single unit on the hypervisor.
+- OSv virtual appliances are virtual machine images with popular software, and management tools, pre-installed.
+- The goal of the project is to wrap any exisiting java program into a Spring Rest API and creating a OSv VAP image of this app. This images are uploaded to AWS as AMI(Amazon Machine Image) and run on HAV(Hardware Assisted Virtualization).
+- The VM images for OSv-based virtual appliances are small, often only 12-20MB larger than the application itself.
+
+
 ## Pre-requiste ##
 
 ----------
@@ -173,7 +179,6 @@ Step 1: Convert the disk.qcow2 image located at `~/.capstan/instances/qemu/chess
 	
 	qemu-img convert disk.qcow2 chess-rest-api-img.raw
 
-Note: This creates a 10GB image. 
 
 Create a IAM role named `vmimport` using the `qemu-images/trust-policy.json` (change the current directory):
 
