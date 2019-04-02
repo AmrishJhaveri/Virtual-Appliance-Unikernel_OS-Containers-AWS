@@ -2,6 +2,8 @@
 
 ----------
 
+- OSv is a Linux-based JeOS designed to run in a guest VM on the cloud infrastructure and it supports different hypervisors with a
+minimal amount of architecture-specific code.
 - OSv provides Unikernel OS which shrink the resource footprint of cloud services. They are built by compiling high-level languages directly into specialised machine images that run directly on a hypervisor, such as Xen, or on bare metal. Since hypervisors power most public cloud computing infrastructure such as Amazon EC2, this lets your services run more cheaply, more securely and with finer control than with a full software stack.
 - A virtual appliance is a preconfigured software solution that makes it possible to package, maintain, update and manage one or more virtual machines together as a single unit on the hypervisor.
 - OSv virtual appliances are virtual machine images with popular software, and management tools, pre-installed.
