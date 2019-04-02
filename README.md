@@ -2,11 +2,11 @@
 
 ----------
 
+- OSv provides Unikernel OS which shrink the resource footprint of cloud services. They are built by compiling high-level languages directly into specialised machine images that run directly on a hypervisor, such as Xen, or on bare metal. Since hypervisors power most public cloud computing infrastructure such as Amazon EC2, this lets your services run more cheaply, more securely and with finer control than with a full software stack.
 - A virtual appliance is a preconfigured software solution that makes it possible to package, maintain, update and manage one or more virtual machines together as a single unit on the hypervisor.
 - OSv virtual appliances are virtual machine images with popular software, and management tools, pre-installed.
 - The goal of the project is to wrap any exisiting java program into a Spring Rest API and creating a OSv VAP image of this app. This images are uploaded to AWS as AMI(Amazon Machine Image) and run on HAV(Hardware Assisted Virtualization).
 - The VM images for OSv-based virtual appliances are small, often only 12-20MB larger than the application itself.
-
 
 ## Pre-requiste ##
 
